@@ -1,0 +1,74 @@
+{% extends 'partials/base.html' %}
+{% block title %} Logout Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  /* Snappy fade in for container */
+  .row.my-4 {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 0s;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Bounce alert - smoother & faster */
+  .alert-danger {
+    animation: bounceIn 0.6s ease forwards;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+    70% {
+      transform: scale(0.98);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Link hover */
+  a {
+    color: #6f42c1;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover {
+    color: #9c78f4;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="row my-4">
+  <div class="col-md-6 offset-md-3">
+    
+      
+      <div class="alert alert-danger">
+        <h5>You have been logged out</h5>
+      </div>
+      {% comment %} <a href="{% url 'user-login' %}">Login</a> {% endcomment %}
+      <a href="{% url 'user-login' %}" class="btn btn-outline-success mt-2">Login</a>
+    
+  </div>
+</div>
+
+{% endblock %}

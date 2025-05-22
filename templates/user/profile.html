@@ -1,0 +1,130 @@
+{% extends 'partials/base.html' %}
+{% block title %}Login Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  /* Soft purple background for header with gentle gradient */
+  .bg-purple {
+    background: linear-gradient(135deg, #7b5de8 0%, #9c78f4 100%);
+    color: white;
+    font-weight: 600;
+    border-radius: 0.3rem 0.3rem 0 0;
+  }
+
+  /* Clean border with subtle purple tint */
+  .border-purple {
+    border: 2px solid #9c78f4 !important;
+    border-radius: 0.5rem;
+  }
+
+  /* Container fade-in with gentle rise */
+  .container {
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Card fade in with slight delay */
+  .card {
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.4s;
+    background: #fafafa;
+  }
+
+  /* Profile image with soft pastel border and smooth scale on hover */
+  .img-thumbnail {
+    border-radius: 0.5rem;
+    border: 3px solid #c5b4fc;
+    transition: transform 0.3s ease;
+    cursor: default;
+    background: white;
+  }
+  .img-thumbnail:hover {
+    transform: scale(1.06);
+    border-color: #a78bfa;
+  }
+
+  /* Edit button with subtle purple outline and smooth fill on hover */
+  .btn.bg-purple {
+    background: transparent;
+    border: 2px solid #9c78f4;
+    color: #7b5de8;
+    font-weight: 600;
+    border-radius: 0.4rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .btn.bg-purple:hover {
+    background-color: #9c78f4;
+    color: white;
+  }
+
+  /* Table text subtle styling */
+  table.table-borderless th {
+    color: #5a4dbf;
+    font-weight: 600;
+  }
+  table.table-borderless td {
+    color: #3a3571;
+  }
+</style>
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-4">
+          <!-- empty for spacing -->
+        </div>
+        <div class="col-md-8">
+            <div class="card border-purple">
+                <div class="card-header bg-purple">
+                    Profile Page
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="h4">Profile Information</span> 
+                            <a class="btn bg-purple btn-sm float-right" href="{% url 'user-profile-update' %}">Edit</a>
+                            <hr>
+                            <table class="table bg-white table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Name</th>
+                                        <td>{{ user.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email</th>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Phone</th>
+                                        <td>{{ user.profile.phone }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Address</th>
+                                        <td>{{ user.profile.address }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="Profile Image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

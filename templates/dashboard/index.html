@@ -1,0 +1,138 @@
+{% extends 'partials/base.html' %}
+
+{% block title%} Home Page {% endblock%}
+
+{% block content %}
+
+<!-- Animation and UI Enhancements -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+<style>
+  .bg-purple {
+    background-color: #6f42c1 !important;
+  }
+
+  .text-white {
+    color: white !important;
+  }
+
+  .chart-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .chart-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #343a40;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+{% if user.is_authenticated and user.is_staff and user.is_superuser %}
+  {% include 'partials/topnav.html' %}
+
+  <!-- Graphs -->
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+        <div class="chart-card">
+          <div class="chart-title">Orders Distribution</div>
+          <canvas id="myChart1" width="400" height="300"></canvas>
+        </div>
+      </div>
+      <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+        <div class="chart-card">
+          <div class="chart-title">Product Quantities</div>
+          <canvas id="myChart" width="400" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Scripts -->
+  <script>
+    var ctx1 = document.getElementById('myChart1').getContext('2d');
+    var myChart1 = new Chart(ctx1, {
+      type: 'pie',
+      data: {
+        labels: [{% for order in orders %}'{{ order.product.name }}',{% endfor %}],
+        datasets: [{
+          label: 'Orders',
+          data: [{% for order in orders %}'{{ order.order_quantity }}',{% endfor %}],
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)', 'rgba(0, 123, 255, 1)', 'rgba(40, 167, 69, 1)',
+            'rgba(255, 193, 7, 1)', 'rgba(23, 162, 184, 1)', 'rgba(108, 117, 125, 1)',
+            'rgba(255, 87, 34, 1)', 'rgba(0, 188, 212, 1)', 'rgba(96, 125, 139, 1)',
+            'rgba(220, 53, 69, 1)', 'rgba(63, 81, 181, 1)', 'rgba(233, 30, 99, 1)',
+            'rgba(139, 195, 74, 1)', 'rgba(255, 235, 59, 1)'
+          ],
+          borderColor: 'white',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        legend: { position: 'bottom' }
+      }
+    });
+
+    var ctx2 = document.getElementById('myChart').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: [{% for product in products %}'{{ product.name }}',{% endfor %}],
+        datasets: [{
+          label: 'Products',
+          data: [{% for product in products %}'{{ product.quantity }}',{% endfor %}],
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)',
+            'rgba(201, 203, 207, 1)', 'rgba(0, 123, 255, 1)', 'rgba(40, 167, 69, 1)',
+            'rgba(255, 193, 7, 1)', 'rgba(23, 162, 184, 1)', 'rgba(108, 117, 125, 1)',
+            'rgba(255, 87, 34, 1)', 'rgba(0, 188, 212, 1)', 'rgba(96, 125, 139, 1)',
+            'rgba(220, 53, 69, 1)', 'rgba(63, 81, 181, 1)', 'rgba(233, 30, 99, 1)',
+            'rgba(139, 195, 74, 1)', 'rgba(255, 235, 59, 1)'
+          ],
+          borderColor: 'white',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: '#555'
+            }
+          }]
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+  </script>
+
+{% else %}
+  {% include 'dashboard/staff_index.html'%}
+{% endif %}
+
+{% endblock %}

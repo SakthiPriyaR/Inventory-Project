@@ -1,0 +1,55 @@
+<!--Topside-->
+<div class="container">
+    <div class="row mt-4">
+        <!-- Information Card (Full Height) -->
+        <div class="col-md-4 d-flex">
+            <div class="card shadow w-100 d-flex flex-column">
+                <div class="card-header bg-purple text-white">
+                    Information
+                </div>
+                <div class="card-body bg-light text-center flex-grow-1 d-flex align-items-center justify-content-center" style="border-radius: 0 0 0.5rem 0.5rem;">
+                    <marquee behavior="scroll" direction="left" scrollamount="6" style="font-weight: bold; color:rgb(1, 0, 4); font-size: 1.5rem;">
+                        🔔 Stay ahead — Check your latest dashboard insights 📊
+                    </marquee>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Card -->
+        <div class="col-md-8">
+            <div class="card shadow h-100">
+                <div class="card-header bg-purple text-white">
+                    Statistics
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-staff' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Staff <i class="fas fa-users"></i></h4>
+                                    <h3>{{ workers_count }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-product' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Products <i class="fas fa-box"></i></h4>
+                                    <h3>{{ product_count }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-order' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Orders <i class="fas fa-shipping-fast"></i></h4>
+                                    <h3>{{ orders_count }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

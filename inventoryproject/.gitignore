@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment folders
+venv/
+env/
+
+# Django specific files
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+
+# Environment variables
+.env
+
+# VS Code settings
+.vscode/
+
+# PyCharm project files
+.idea/
+
+# macOS system files
+.DS_Store
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Django migrations (optional - track if you want)
+*/migrations/*.py
+*/migrations/*.pyc
+!*/migrations/__init__.py
+
+# Static files (optional - depends on your setup)
+staticfiles/
+
+# If you use pipenv or poetry
+Pipfile.lock
+poetry.lock

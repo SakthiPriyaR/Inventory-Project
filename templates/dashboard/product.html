@@ -1,0 +1,149 @@
+{% extends 'partials/base.html' %} 
+
+{% block title %} Product Page {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include 'partials/topnav.html' %}
+
+<style>
+  .bg-purple {
+    background-color: #6f42c1 !important;
+  }
+
+  .text-white {
+    color: white !important;
+  }
+
+  .form-container {
+    background-color: #6f42c1;
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 10px 25px rgba(111, 66, 193, 0.4);
+    animation: fadeInLeft 0.6s ease;
+  }
+
+  .table-container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeInRight 0.6s ease;
+  }
+
+  .btn-purple {
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-purple:hover {
+    background-color: #5a32a3;
+    transform: scale(1.05);
+  }
+
+  table {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  thead {
+    border-radius: 12px 12px 0 0;
+  }
+
+  tbody tr {
+    transition: all 0.3s ease;
+  }
+
+  tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.01);
+    cursor: pointer;
+  }
+
+  @keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>
+
+<!-- Main Container -->
+<div class="container">
+  <div class="row my-4 align-items-start">
+    
+    <!-- Form Column -->
+    <div class="col-md-4">
+      <div class="form-container">
+        <h4 class="mb-3">🛍️ Add Products</h4>
+        <hr class="border-light">
+        {% for message in messages %}
+        {% if message %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <form method="POST">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input class="btn btn-light btn-block mt-3" type="submit" value="➕ Add Product">
+        </form>
+      </div>
+    </div>
+
+    <!-- Table Column -->
+    <div class="col-md-8">
+      <div class="table-container">
+        <h4 class="mb-3">📦 Product List</h4>
+        <table class="table bg-white">
+          <thead class="bg-purple">
+            <tr class="text-white">
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ item.name }}</td>
+              <td>{{ item.category }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>
+                <a class="btn btn-purple btn-sm" href="{% url 'dashboard-product-update' item.pk %}">✏️ Edit</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'dashboard-product-delete' item.pk %}">🗑️ Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Order Page{% endblock %}
+
+{% block content %}
+<style>
+  :root {
+    --purple: #6f42c1;
+    --light-purple: #ede7f6;
+    --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  body {
+    background: #f4f3fa;
+  }
+
+  .card-header.bg-purple {
+    background-color: var(--purple) !important;
+    color: white !important;
+  }
+
+  .order-table-container {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: var(--soft-shadow);
+    animation: fadeIn 0.7s ease forwards;
+  }
+
+  h2.section-title {
+    color: var(--purple);
+    font-weight: 700;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  thead {
+    background-color: var(--purple);
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  th, td {
+    padding: 12px 18px;
+    vertical-align: middle !important;
+  }
+
+  tbody tr {
+    transition: all 0.25s ease;
+  }
+
+  tbody tr:hover {
+    background-color: var(--light-purple);
+    transform: scale(1.01);
+    cursor: pointer;
+  }
+
+  .table-responsive {
+    border-radius: 12px;
+    overflow-x: auto;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--purple);
+    background-color: #f3e8ff;
+    border-radius: 999px;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.4;
+    min-width: 80px;
+    box-shadow: 0 1px 2px rgba(111, 66, 193, 0.08);
+    transition: all 0.2s ease-in-out;
+  }
+</style>
+
+{% include 'partials/topnav.html' %}
+
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-12">
+      <div class="order-table-container">
+        <h2 class="section-title">Orders Overview</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Order By</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for orders in orders %}
+              <tr>
+                <td>#{{ forloop.counter }}</td>
+                <td>{{ orders.product }}</td>
+                <td><span class="pill">{{ orders.product.category }}</span></td>
+                <td>{{ orders.order_quantity }}</td>
+                <td>{{ orders.staff.username }}</td>
+                <td>{{ orders.date }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center text-muted">No orders yet.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

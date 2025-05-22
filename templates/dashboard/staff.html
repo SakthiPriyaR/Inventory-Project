@@ -1,0 +1,89 @@
+{% extends 'partials/base.html' %}
+
+{% block title%} 🌟 Staff Page 🌟 {% endblock%}
+
+{% block content %}
+<style>
+  .bg-purple {
+    background-color: #6f42c1 !important;
+  }
+  .text-white {
+    color: white !important;
+  }
+
+  .animated-container {
+    animation: fadeInUp 1s ease-in-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .glow-border {
+    border: 2px solid #6f42c1;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(111, 66, 193, 0.6);
+  }
+
+  .emoji-header {
+    font-size: 1.5rem;
+  }
+
+  .table thead th {
+    vertical-align: middle;
+  }
+
+  .view-btn:hover {
+    background-color: #5a33a2 !important;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+  }
+</style>
+
+{% include 'partials/topnav.html' %}
+
+<!-- Main Staff Section -->
+<div class="container animated-container">
+  <div class="row my-4">
+   
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 glow-border p-3 bg-light">
+      <table class="table bg-white shadow-sm rounded">
+        <thead class="bg-purple">
+          <tr class="text-white text-center">
+            <th scope="col">👁️‍🗨️</th>
+            <th scope="col">👥 Name</th>
+            <th scope="col">📧 Email</th>
+            <th scope="col">📞 Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for worker in workers %}
+            <tr class="text-center align-middle">
+              <th scope="row">
+                <a class="btn bg-purple btn-sm text-white view-btn" href="{% url 'dashboard-staff-detail' worker.id %}">View 🔍</a>
+              </th>
+              <td>{{worker.username}}</td>
+              <td>{{worker.email}}</td>
+              <td>{{worker.profile.phone}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+<!-- End Staff Section -->
+
+{% endblock %}

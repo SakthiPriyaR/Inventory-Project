@@ -1,0 +1,102 @@
+{% extends 'partials/base.html' %}
+{% block title %}Login Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  /* Container fade-in */
+  .row.my-4 {
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.2s;
+  }
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Purple border and background for card */
+  .border-purple {
+    border: 2px solid #9c78f4 !important;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+    background: #fafafa;
+  }
+  .border-purple:hover {
+    box-shadow: 0 8px 18px rgba(156, 120, 244, 0.3);
+  }
+  .bg-purple {
+    background-color: #7b5de8 !important;
+    color: white;
+    font-weight: 700;
+    border-radius: 8px 8px 0 0;
+  }
+
+  /* Heading style */
+  .h4 {
+    color: #6f42c1;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  hr {
+    border-color: #d7ccf7;
+  }
+
+  /* Update button styling */
+  input[type="submit"] {
+    background-color: #9c78f4;
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1.6rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 1rem;
+  }
+  input[type="submit"]:hover {
+    background-color: #7b5de8;
+    transform: scale(1.05);
+  }
+
+  /* Form spacing */
+  form {
+    margin-top: 1rem;
+  }
+</style>
+
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+      <div class="card border-purple">
+        <div class="card-header bg-purple text-white">
+          Profile Page
+        </div>
+        <div class="card-body border-purple">
+          <div class="row">
+            <div class="col-md-8">
+              <span class="h4">Profile Information</span>
+              <hr>
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ user_form|crispy }}
+                {{ profile_form|crispy }}
+                <input type="submit" value="Update">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

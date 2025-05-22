@@ -1,0 +1,90 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Edit Item Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  .border-purple {
+    border: 2px solid #6f42c1 !important;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(111, 66, 193, 0.15);
+  }
+
+  h3 {
+    color: #6f42c1;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  hr {
+    border-top: 2px solid #6f42c1;
+    opacity: 0.8;
+  }
+
+  .btn-dark {
+    background-color: #6f42c1;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+  }
+
+  .btn-dark:hover {
+    background-color: #5a35a3;
+    transform: scale(1.05);
+  }
+
+  .btn-purple {
+    background-color: #6f42c1;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .btn-purple:hover {
+    background-color: #5a35a3;
+    transform: scale(1.05);
+  }
+
+  .row {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-6 offset-md-3">
+      <div class="p-4 bg-white border-purple">
+        <h3>📝 Edit Item</h3>
+        <hr>
+        <form method="POST">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <div class="d-flex justify-content-between mt-3">
+            <a class="btn btn-dark" href="{% url 'dashboard-product' %}">Cancel</a>
+            <input class="btn btn-purple" type="submit" value="Update">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

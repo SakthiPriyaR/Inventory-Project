@@ -1,0 +1,82 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}Register Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  /* Fade-in animation for the container */
+  .row.my-4 {
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Form container styling */
+  .border {
+    border: 2px solid #9c78f4;
+    border-radius: 0.6rem;
+    background: #fafafa;
+    padding: 1.75rem 2rem;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .border:hover {
+    box-shadow: 0 8px 15px rgba(156, 120, 244, 0.3);
+  }
+
+  /* Heading style */
+  h4 {
+    color: #7b5de8;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  hr {
+    border-color: #d7ccf7;
+  }
+
+  /* Register button styling */
+  .btn-success {
+    background-color: #9c78f4 !important;
+    border-color: #9c78f4 !important;
+    font-weight: 600;
+    border-radius: 0.4rem;
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-success:hover {
+    background-color: #7b5de8 !important;
+    border-color: #7b5de8 !important;
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="row my-4">
+  <div class="col-md-6 offset-md-3">
+    <div class="border bg-white">
+      <h4>Register Page</h4>
+      <hr>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-success" type="submit" value="Register">
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

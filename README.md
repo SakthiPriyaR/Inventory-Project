@@ -18,8 +18,8 @@ This is a basic inventory management system built with Django.
 pip install -r requirements.txt
 
 ## Set up the database:
-python manage.py makemigrations
-python manage.py migrate
+1. python manage.py makemigrations
+2. python manage.py migrate
 
 ## Run the development server:
 python manage.py runserver

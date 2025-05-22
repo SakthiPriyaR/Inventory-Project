@@ -1,4 +1,4 @@
-﻿ # Inventory Project 
+ 
 # Inventory Project
 
 This is a basic inventory management system built with Django.

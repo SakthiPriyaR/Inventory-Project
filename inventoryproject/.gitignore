@@ -41,6 +41,4 @@ htmlcov/
 # Static files (optional - depends on your setup)
 staticfiles/
 
-# If you use pipenv or poetry
-Pipfile.lock
-poetry.lock
+
